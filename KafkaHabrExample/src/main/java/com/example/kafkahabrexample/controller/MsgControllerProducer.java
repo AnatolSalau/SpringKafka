@@ -13,18 +13,18 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("msg")
 public class MsgControllerProducer {
 
-      /**
-       * KafkaTemplate<String, String> - <Key type, Message type>
-       */
-      private final KafkaTemplate<Long, String> kafkaTemplate;
+      private final KafkaTemplate<Long, String> longKafkaTemplate;
 
+      /**
+       * KafkaTemplate<Long, String> - <Key type, Message type>
+       */
       @Autowired
-      public MsgControllerProducer(KafkaTemplate<Long, String> kafkaTemplate) {
-            this.kafkaTemplate = kafkaTemplate;
+      public MsgControllerProducer(KafkaTemplate<Long, String> longKafkaTemplate) {
+            this.longKafkaTemplate = longKafkaTemplate;
       }
 
       /**
-       * @param msgId - String the same type as in KafkaTemplate
+       * @param msgId - Long the same type as in KafkaTemplate
        * @param msg - String the same type as in KafkaTemplate
        */
       @PostMapping
@@ -32,11 +32,11 @@ public class MsgControllerProducer {
             /**
              * .send(topic: "msg", msgId, msg); topic: - theme name in Kafka
              */
-            CompletableFuture<SendResult<Long, String>> futureMessage = kafkaTemplate.send("msg", msgId, msg);
+            CompletableFuture<SendResult<Long, String>> futureMessage = longKafkaTemplate.send("msg", msgId, msg);
             futureMessage.whenComplete((result, err) -> {
-                  System.out.println();
+                  System.out.println("Message was send");
                   System.out.println(result);
             });
-            kafkaTemplate.flush();
+            longKafkaTemplate.flush();
       }
 }

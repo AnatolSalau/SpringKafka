@@ -13,6 +13,7 @@ public class MsgControllerConsumer {
 
       @KafkaListener(topics="msg")
       public void msgListener(String msg){
+            System.out.println("Message was received");
             System.out.println(msg);
       }
 }
