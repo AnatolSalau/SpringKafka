@@ -16,10 +16,10 @@ public class MsgControllerProducer {
       /**
        * KafkaTemplate<String, String> - <Key type, Message type>
        */
-      private final KafkaTemplate<String, String> kafkaTemplate;
+      private final KafkaTemplate<Long, String> kafkaTemplate;
 
       @Autowired
-      public MsgControllerProducer(KafkaTemplate<String, String> kafkaTemplate) {
+      public MsgControllerProducer(KafkaTemplate<Long, String> kafkaTemplate) {
             this.kafkaTemplate = kafkaTemplate;
       }
 
@@ -28,10 +28,15 @@ public class MsgControllerProducer {
        * @param msg - String the same type as in KafkaTemplate
        */
       @PostMapping
-      public void sendOrder(String msgId, String msg){
+      public void sendOrder(Long msgId, String msg){
             /**
              * .send(topic: "msg", msgId, msg); topic: - theme name in Kafka
              */
-            CompletableFuture<SendResult<String, String>> msg1 = kafkaTemplate.send("msg", msgId, msg);
+            CompletableFuture<SendResult<Long, String>> futureMessage = kafkaTemplate.send("msg", msgId, msg);
+            futureMessage.whenComplete((result, err) -> {
+                  System.out.println();
+                  System.out.println(result);
+            });
+            kafkaTemplate.flush();
       }
 }

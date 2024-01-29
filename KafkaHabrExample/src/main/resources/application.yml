@@ -1,4 +1,8 @@
+config:
+  kafka:
+    server: "localhost:9092"
 spring:
   kafka:
     consumer:
       group-id: app.1
+
