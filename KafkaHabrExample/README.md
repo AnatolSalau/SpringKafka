@@ -4,10 +4,11 @@ link:
     https://habr.com/ru/articles/496182/
 
 1. Start zookeeper
+    Открыть консоль в C:\JAVA\kafka_2.13-3.6.1\bin\windows
 
     start zookeeper-server-start.bat C:\JAVA\kafka_2.13-3.6.1\config\zookeeper.properties
 
-2. Start KAFKA
+3. Start KAFKA
 
    start kafka-server-start.bat C:\JAVA\kafka_2.13-3.6.1\config\server.properties
 

@@ -17,7 +17,7 @@ import java.util.Map;
 
 @Configuration
 public class KafkaProducerConfig {
-      @Value("${config.kafka.server}")
+      @Value("${spring.kafka.bootstrap-servers}")
       private  String KAFKA_SERVER;
 
       /**
@@ -44,5 +44,4 @@ public class KafkaProducerConfig {
       public KafkaTemplate<Long, UserDto> longKafkaTemplate() {
             return new KafkaTemplate<>(longProducerFactory());
       }
-
 }
